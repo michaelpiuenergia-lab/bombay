@@ -5,7 +5,7 @@ import IndiaBand from "@/components/IndiaBand";
 import FoodGallery from "@/components/FoodGallery";
 import Marquee from "@/components/Marquee";
 import MenuSection from "@/components/MenuSection";
-import FeastReveal from "@/components/FeastReveal";
+import HalalReel from "@/components/HalalReel";
 import HeatLevels from "@/components/HeatLevels";
 import WhyBombay from "@/components/WhyBombay";
 import Experience from "@/components/Experience";
@@ -23,7 +23,7 @@ export default function Home() {
       <FoodGallery />
       <Marquee />
       <MenuSection />
-      <FeastReveal />
+      <HalalReel />
       <HeatLevels />
       <WhyBombay />
       <Experience />
