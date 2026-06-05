@@ -42,6 +42,7 @@ function Pic({ src, alt }: { src: string; alt: string }) {
 export default function HalalReel() {
   return (
     <section
+      id="reel"
       aria-label="Tutto fritto al momento, tutto Halal"
       className="relative py-16 sm:py-20"
     >
@@ -103,7 +104,7 @@ export default function HalalReel() {
 function HalalSeal() {
   const reduce = useReducedMotion();
   return (
-    <div className="relative grid aspect-square w-[17rem] place-items-center sm:w-[22rem]">
+    <div className="relative mx-auto grid aspect-square w-full max-w-[20rem] place-items-center">
       {/* alone pulsante */}
       <motion.div
         className="absolute inset-2 rounded-full bg-saffron/25 blur-[70px]"
