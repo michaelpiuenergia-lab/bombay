@@ -21,7 +21,6 @@ export default function Footer() {
                 width={204}
                 height={208}
                 className="h-full w-full object-cover"
-                quality={100}
               />
             </div>
           </div>

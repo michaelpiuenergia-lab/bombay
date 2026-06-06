@@ -94,22 +94,25 @@ export default function Intro() {
           {/* ANTA SINISTRA */}
           <motion.div
             className="absolute inset-y-0 left-0 w-1/2 overflow-hidden bg-gradient-to-b from-tandoori via-saffron to-[#D2540F]"
+            style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", willChange: "transform" }}
             initial={{ x: 0 }}
             animate={{ x: opening ? "-101%" : 0 }}
             transition={{ duration: 1.05, ease: doorEase }}
           >
-            <Mandala className="absolute -left-[35vh] top-1/2 h-[150vh] w-[150vh] -translate-y-1/2 text-ink/[0.13] animate-spin-slow" />
+            {/* mandala pesante solo da sm in su (su mobile fa flicker) */}
+            <Mandala className="absolute -left-[35vh] top-1/2 hidden h-[150vh] w-[150vh] -translate-y-1/2 text-ink/[0.13] animate-spin-slow sm:block" />
             <div className="absolute inset-y-0 right-0 w-1.5 bg-ink/70 shadow-[0_0_24px_rgba(0,0,0,0.45)]" />
           </motion.div>
 
           {/* ANTA DESTRA */}
           <motion.div
             className="absolute inset-y-0 right-0 w-1/2 overflow-hidden bg-gradient-to-b from-tandoori via-saffron to-[#D2540F]"
+            style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", willChange: "transform" }}
             initial={{ x: 0 }}
             animate={{ x: opening ? "101%" : 0 }}
             transition={{ duration: 1.05, ease: doorEase }}
           >
-            <Mandala className="absolute -right-[35vh] top-1/2 h-[150vh] w-[150vh] -translate-y-1/2 text-ink/[0.13] animate-spin-slow" />
+            <Mandala className="absolute -right-[35vh] top-1/2 hidden h-[150vh] w-[150vh] -translate-y-1/2 text-ink/[0.13] animate-spin-slow sm:block" />
             <div className="absolute inset-y-0 left-0 w-1.5 bg-ink/70 shadow-[0_0_24px_rgba(0,0,0,0.45)]" />
           </motion.div>
 
@@ -119,7 +122,7 @@ export default function Intro() {
             animate={{ opacity: opening ? 0 : 1, scale: opening ? 1.5 : 1 }}
             transition={{ duration: 0.7, ease: "easeIn" }}
           >
-            <div className="pointer-events-none absolute h-[40rem] w-[40rem] rounded-full bg-saffron/15 blur-[130px]" />
+            <div className="pointer-events-none absolute h-[22rem] w-[22rem] rounded-full bg-saffron/15 blur-[70px] sm:h-[40rem] sm:w-[40rem] sm:blur-[130px]" />
 
             <motion.span
               initial={{ opacity: 0, y: 14 }}
