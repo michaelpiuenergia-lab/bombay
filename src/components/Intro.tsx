@@ -81,7 +81,7 @@ export default function Intro() {
     window.addEventListener("touchmove", onWheel, { passive: true });
     window.addEventListener("keydown", onKey);
     // Mobile: dopo un breve splash il sipario si apre da solo. Desktop: fallback anti-blocco a 9s.
-    const auto = setTimeout(() => enter(), isMobile ? 1000 : 9000);
+    const auto = setTimeout(() => enter(), isMobile ? 1400 : 9000);
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchmove", onWheel);
@@ -146,24 +146,28 @@ export default function Intro() {
               नमस्ते · NAMASTÉ
             </motion.span>
 
-            <motion.div
-              initial={{ scale: 0.2, opacity: 0, rotate: -25 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 80, damping: 14, delay: 0.15 }}
-            >
-              <HalalSeal className="w-56 sm:w-72" />
-            </motion.div>
+            {/* gruppo logo + titolo: su mobile impilati e centrati insieme (composizione
+                equilibrata); su desktop il titolo torna in basso assoluto. */}
+            <div className="flex flex-col items-center">
+              <motion.div
+                initial={{ scale: 0.2, opacity: 0, rotate: -25 }}
+                animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 80, damping: 14, delay: 0.15 }}
+              >
+                <HalalSeal className="w-52 sm:w-72" />
+              </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="absolute bottom-[20%] left-0 right-0 px-6"
-            >
-              <h2 className="font-display text-3xl uppercase leading-none text-cream sm:text-5xl">
-                Dall&apos;India <span className="text-gradient-gold">a Bombay</span>
-              </h2>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: isMobile ? 0.35 : 0.5, duration: 0.6 }}
+                className="mt-7 sm:mt-0 sm:absolute sm:bottom-[20%] sm:left-0 sm:right-0 sm:px-6"
+              >
+                <h2 className="font-display text-3xl uppercase leading-none text-cream sm:text-5xl">
+                  Dall&apos;India <span className="text-gradient-gold">a Bombay</span>
+                </h2>
+              </motion.div>
+            </div>
 
             {/* invito a entrare */}
             <motion.div
