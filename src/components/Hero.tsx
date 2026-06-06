@@ -3,6 +3,7 @@
 import {
   motion,
   useMotionValue,
+  useMotionTemplate,
   useSpring,
   useTransform,
   useScroll,
@@ -203,15 +204,15 @@ export default function Hero() {
    in lontananza a varie prospettive — al posto delle braci-"pallini".
    Deterministiche (no Math.random → no mismatch SSR). */
 const FRY_SRC = ["/food/fry-a.png", "/food/fry-b.png"];
-const FRY_PARTICLES = Array.from({ length: 11 }, (_, i) => ({
+const FRY_PARTICLES = Array.from({ length: 9 }, (_, i) => ({
   src: FRY_SRC[i % 2],
-  left: (i * 71 + 4) % 100,
-  len: 34 + (i % 4) * 14, // 34..76 px (mix vicino/lontano → profondità)
+  left: (i * 73 + 6) % 100,
+  len: 16 + (i % 4) * 7, // 16..37 px (piccole/sottili → la morbidezza non si nota)
   rot: (i * 67) % 360, // patatine vere → ruotano naturali a ogni angolo
-  spin: (i % 2 ? 1 : -1) * (28 + (i % 3) * 22),
-  dur: 8 + (i % 5),
-  delay: (i % 7) * 0.8,
-  drift: (i % 2 ? 1 : -1) * (10 + (i % 4) * 8),
+  spin: (i % 2 ? 1 : -1) * (24 + (i % 3) * 18),
+  dur: 9 + (i % 5),
+  delay: (i % 7) * 0.9,
+  drift: (i % 2 ? 1 : -1) * (8 + (i % 4) * 7),
   rise: 200 + (i % 5) * 70,
 }));
 
@@ -226,7 +227,7 @@ function FloatingFries() {
           className="absolute bottom-0"
           style={{ left: `${p.left}%` }}
           initial={{ y: 30, opacity: 0, rotate: p.rot }}
-          animate={{ y: -p.rise, x: [0, p.drift, 0], rotate: p.rot + p.spin, opacity: [0, 0.9, 0] }}
+          animate={{ y: -p.rise, x: [0, p.drift, 0], rotate: p.rot + p.spin, opacity: [0, 0.55, 0] }}
           transition={{ duration: p.dur, delay: p.delay, repeat: Infinity, ease: "easeOut" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -237,22 +238,49 @@ function FloatingFries() {
   );
 }
 
+/* Card cibo INTERATTIVA: tilt 3D che segue dito/mouse + glare dorato (mobile-friendly). */
 function FoodCard({ src, alt, delay = 0, compact = false }: { src: string; alt: string; delay?: number; compact?: boolean }) {
   const reduce = useReducedMotion();
+  const px = useMotionValue(0.5);
+  const py = useMotionValue(0.5);
+  const rotateX = useSpring(useTransform(py, [0, 1], [9, -9]), { stiffness: 150, damping: 15 });
+  const rotateY = useSpring(useTransform(px, [0, 1], [-9, 9]), { stiffness: 150, damping: 15 });
+  const gx = useTransform(px, (v) => `${v * 100}%`);
+  const gy = useTransform(py, (v) => `${v * 100}%`);
+  const glare = useMotionTemplate`radial-gradient(150px circle at ${gx} ${gy}, rgba(255,201,90,0.5), transparent 60%)`;
+
+  function onMove(e: React.PointerEvent) {
+    if (reduce) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    px.set((e.clientX - r.left) / r.width);
+    py.set((e.clientY - r.top) / r.height);
+  }
+  function onLeave() {
+    px.set(0.5);
+    py.set(0.5);
+  }
+
   return (
     <motion.figure
       initial={reduce ? false : { opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay, ease: easeOut }}
-      className="group relative overflow-hidden rounded-3xl border border-cream/10 shadow-card"
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+      style={reduce ? undefined : { rotateX, rotateY, transformPerspective: 700 }}
+      className="group relative overflow-hidden rounded-3xl border border-cream/10 shadow-card [touch-action:pan-y] [transform-style:preserve-3d]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt={alt}
         loading="lazy"
-        className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${compact ? "h-28" : "h-48 xl:h-56"}`}
+        className={`w-full object-cover transition-transform duration-700 group-hover:scale-[1.06] ${compact ? "h-28" : "h-48 xl:h-56"}`}
       />
+      {/* glare oro che segue il puntatore/dito */}
+      {!reduce && (
+        <motion.span aria-hidden className="pointer-events-none absolute inset-0 mix-blend-soft-light" style={{ background: glare }} />
+      )}
       <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/90 to-transparent p-3 text-left">
         <span className="font-accent text-sm tracking-wide text-cream">{alt}</span>
       </figcaption>
