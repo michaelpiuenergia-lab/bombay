@@ -12,14 +12,18 @@ export default function Footer() {
           <span className="font-display text-[18vw] uppercase leading-none text-cream/[0.04]">
             Bombay
           </span>
-          <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full ring-1 ring-tandoori/30 sm:h-32 sm:w-32">
-            <Image
-              src="/logo-badge.png"
-              alt="Timbro Bombay Fry & Grill"
-              width={204}
-              height={208}
-              className="h-full w-full object-cover"
-            />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute -inset-5 rounded-full bg-saffron/15 blur-2xl" />
+            <div className="relative h-28 w-28 overflow-hidden rounded-full ring-1 ring-tandoori/40 shadow-[0_12px_44px_-10px_rgba(255,140,0,0.55)] sm:h-36 sm:w-36">
+              <Image
+                src="/logo-badge.png"
+                alt="Timbro Bombay Fry & Grill"
+                width={204}
+                height={208}
+                className="h-full w-full object-cover"
+                quality={100}
+              />
+            </div>
           </div>
         </div>
 

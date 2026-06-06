@@ -173,7 +173,7 @@ export default function Hero() {
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.72 }}
-            className="mt-7 grid w-full max-w-md grid-cols-4 gap-3 border-t border-cream/12 pt-5"
+            className="mt-7 grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-4 border-t border-cream/12 pt-5 sm:grid-cols-4 sm:gap-3"
           >
             {stats.map((s) => (
               <div key={s.label}>
