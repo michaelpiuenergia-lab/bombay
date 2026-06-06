@@ -42,14 +42,24 @@ export default function Intro() {
   const reduce = useReducedMotion();
   const [show, setShow] = useState(true);
   const [opening, setOpening] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const entered = useRef(false);
+
+  // Rileva il mobile: lì il sipario è semplificato (apertura automatica e più rapida).
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    setIsMobile(mq.matches);
+    const onChange = () => setIsMobile(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const enter = useCallback(() => {
     if (entered.current) return;
     entered.current = true;
     setOpening(true);
-    setTimeout(() => setShow(false), 1150);
-  }, []);
+    setTimeout(() => setShow(false), isMobile ? 800 : 1150);
+  }, [isMobile]);
 
   // Blocca lo scroll SOLO finché l'intro è visibile, e lo ripristina sempre.
   useEffect(() => {
@@ -70,16 +80,18 @@ export default function Intro() {
     window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("touchmove", onWheel, { passive: true });
     window.addEventListener("keydown", onKey);
-    const fallback = setTimeout(() => enter(), 9000); // non resta mai bloccato
+    // Mobile: dopo un breve splash il sipario si apre da solo. Desktop: fallback anti-blocco a 9s.
+    const auto = setTimeout(() => enter(), isMobile ? 1000 : 9000);
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchmove", onWheel);
       window.removeEventListener("keydown", onKey);
-      clearTimeout(fallback);
+      clearTimeout(auto);
     };
-  }, [reduce, enter]);
+  }, [reduce, enter, isMobile]);
 
   const doorEase = [0.76, 0, 0.24, 1] as const;
+  const doorDur = isMobile ? 0.7 : 1.05;
 
   return (
     <AnimatePresence>
@@ -97,7 +109,7 @@ export default function Intro() {
             style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", willChange: "transform" }}
             initial={{ x: 0 }}
             animate={{ x: opening ? "-101%" : 0 }}
-            transition={{ duration: 1.05, ease: doorEase }}
+            transition={{ duration: doorDur, ease: doorEase }}
           >
             {/* mandala pesante solo da sm in su (su mobile fa flicker) */}
             <Mandala className="absolute -left-[35vh] top-1/2 hidden h-[150vh] w-[150vh] -translate-y-1/2 text-ink/[0.13] animate-spin-slow sm:block" />
@@ -110,7 +122,7 @@ export default function Intro() {
             style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", willChange: "transform" }}
             initial={{ x: 0 }}
             animate={{ x: opening ? "101%" : 0 }}
-            transition={{ duration: 1.05, ease: doorEase }}
+            transition={{ duration: doorDur, ease: doorEase }}
           >
             <Mandala className="absolute -right-[35vh] top-1/2 hidden h-[150vh] w-[150vh] -translate-y-1/2 text-ink/[0.13] animate-spin-slow sm:block" />
             <div className="absolute inset-y-0 left-0 w-1.5 bg-ink/70 shadow-[0_0_24px_rgba(0,0,0,0.45)]" />
@@ -122,13 +134,14 @@ export default function Intro() {
             animate={{ opacity: opening ? 0 : 1, scale: opening ? 1.5 : 1 }}
             transition={{ duration: 0.7, ease: "easeIn" }}
           >
-            <div className="pointer-events-none absolute h-[22rem] w-[22rem] rounded-full bg-saffron/15 blur-[70px] sm:h-[40rem] sm:w-[40rem] sm:blur-[130px]" />
+            {/* alone sfocato: pesante da ricompositare durante lo scale -> solo da sm in su (su mobile fa flicker) */}
+            <div className="pointer-events-none absolute hidden h-[40rem] w-[40rem] rounded-full bg-saffron/15 blur-[130px] sm:block" />
 
             <motion.span
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="absolute top-[18%] font-accent text-base tracking-[0.45em] text-tandoori sm:text-lg"
+              className="absolute top-[18%] hidden font-accent text-base tracking-[0.45em] text-tandoori sm:block sm:text-lg"
             >
               नमस्ते · NAMASTÉ
             </motion.span>
@@ -156,13 +169,14 @@ export default function Intro() {
             <motion.div
               animate={reduce ? undefined : { opacity: [0.5, 1, 0.5], y: [0, 4, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-[9%] left-0 right-0 font-accent text-xs tracking-[0.3em] text-cream/70"
+              className="absolute bottom-[9%] left-0 right-0 hidden font-accent text-xs tracking-[0.3em] text-cream/70 sm:block"
             >
               SCORRI O CLICCA PER ENTRARE ▸
             </motion.div>
           </motion.div>
 
-          <Embers />
+          {/* le particelle spariscono appena parte l'apertura: meno layer da compositare = niente flicker */}
+          {!opening && <Embers />}
         </motion.div>
       )}
     </AnimatePresence>
