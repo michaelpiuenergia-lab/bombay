@@ -7,15 +7,35 @@ import {
   useTransform,
   useScroll,
   useReducedMotion,
-  type MotionValue,
 } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
-import { Paisley, HalalBadge } from "./Icons";
-import Embers from "./Embers";
+import { HalalBadge } from "./Icons";
 import { stats } from "@/lib/data";
 
+/* ════════════════════════════════════════════════════════════════════════
+   HERO — "SEI ARRIVATO DA BOMBAY"
+   Stesso sfondo delle sezioni che piacciono (Atmosphere + glow morbidi).
+   PIENA come HalalReel: identità del brand al centro (gallo + insegna +
+   timbro HALAL) affiancata da DUE colonne di cibo ordinate. Niente vuoto,
+   niente immagini sparse. Il logo è il re, l'Halal il cavallo di battaglia.
+   ════════════════════════════════════════════════════════════════════════ */
+
 const easeOut = [0.22, 1, 0.36, 1] as const;
+
+const LEFT_FOOD = [
+  { src: "/food/u4.jpg", alt: "Tandoori Crunch Burger" },
+  { src: "/food/u8.jpg", alt: "Seekh Kebab alla brace" },
+];
+const RIGHT_FOOD = [
+  { src: "/food/u5.jpg", alt: "Bombay Bucket di pollo fritto" },
+  { src: "/food/u11.jpg", alt: "Masala Wings glassate" },
+];
+const MOBILE_FOOD = [
+  { src: "/food/u5.jpg", alt: "Bombay Bucket" },
+  { src: "/food/u4.jpg", alt: "Tandoori Crunch Burger" },
+  { src: "/food/u11.jpg", alt: "Masala Wings" },
+];
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -23,22 +43,10 @@ export default function Hero() {
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 60, damping: 18 });
-  const sy = useSpring(my, { stiffness: 60, damping: 18 });
-
-  const logoRotX = useTransform(sy, [-0.5, 0.5], [8, -8]);
-  const logoRotY = useTransform(sx, [-0.5, 0.5], [-10, 10]);
-  const driftX = useTransform(sx, [-0.5, 0.5], [-26, 26]);
-  const driftY = useTransform(sy, [-0.5, 0.5], [-26, 26]);
-  const driftX2 = useTransform(sx, [-0.5, 0.5], [22, -22]);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const yText = useTransform(scrollYProgress, [0, 1], [0, -90]);
-  const yLogo = useTransform(scrollYProgress, [0, 1], [0, 110]);
-  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const sx = useSpring(mx, { stiffness: 50, damping: 18 });
+  const sy = useSpring(my, { stiffness: 50, damping: 18 });
+  const signX = useTransform(sx, [-0.5, 0.5], [-8, 8]);
+  const signY = useTransform(sy, [-0.5, 0.5], [-6, 6]);
 
   function onMove(e: React.MouseEvent) {
     if (reduce) return;
@@ -52,297 +60,229 @@ export default function Hero() {
     <section
       ref={ref}
       onMouseMove={onMove}
-      className="grain relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-24"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden py-24"
     >
-      {/* Bagliori caldi + luce cinematografica */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-[6%] h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-saffron/30 blur-[120px]" />
-        <div className="absolute right-[4%] top-1/4 h-[460px] w-[460px] rounded-full bg-indian/40 blur-[120px]" />
-        <div className="absolute bottom-0 left-[12%] h-[400px] w-[500px] rounded-full bg-tandoori/22 blur-[130px]" />
-        {/* vignettatura cinematografica: dà profondità e toglie il marrone "piatto" */}
-        <div
-          className="absolute inset-0"
-          style={{ background: "radial-gradient(120% 95% at 50% 32%, transparent 42%, rgba(8,2,2,0.6) 100%)" }}
-        />
+      {/* ░░ AMBIENTE: identico alle sezioni che ami — Atmosphere + glow morbidi ░░ */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute left-1/2 top-1/3 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-indian/20 blur-[150px]" />
+        <div className="absolute left-1/2 bottom-0 h-[28rem] w-[40rem] -translate-x-1/2 rounded-full bg-saffron/12 blur-[150px]" />
       </div>
 
-      {/* Base di fiamme / brace della griglia */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56">
-        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-indian/50 via-saffron/15 to-transparent" />
+      {/* tricolore */}
+      <div className="absolute inset-x-0 top-0 z-30 grid h-1 grid-cols-3">
+        <div className="bg-saffron" /><div className="bg-cream" /><div className="bg-mehndi" />
+      </div>
+
+      {/* patatine che levitano (al posto delle braci-pallini) */}
+      <FloatingFries />
+
+      <div className="container-bombay relative z-10 grid w-full items-center gap-6 lg:grid-cols-[0.8fr_1.15fr_0.8fr] lg:gap-8">
+        {/* ── colonna cibo SINISTRA ── */}
+        <div className="hidden flex-col gap-4 lg:flex">
+          {LEFT_FOOD.map((f, i) => <FoodCard key={f.src} {...f} delay={0.5 + i * 0.12} />)}
+        </div>
+
+        {/* ── IDENTITÀ centrale ── */}
         <motion.div
-          className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ember/40 to-transparent mix-blend-screen"
-          animate={reduce ? undefined : { opacity: [0.5, 0.85, 0.55, 0.9, 0.5] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
-      {/* Scintille che salgono dalla brace */}
-      <Embers />
-
-      {/* Foto di cibo vero fluttuanti — protagoniste, non più chip minuscole */}
-      <FloatingToken className="left-[1%] top-[14%]" delay={0} drift={driftX} drift2={driftY}>
-        <FoodChip src="/food/u1.jpg" alt="Bhut Jolokia Drumsticks" rot="-7deg" size="lg" />
-      </FloatingToken>
-      <FloatingToken className="left-[6%] bottom-[14%]" delay={0.5} drift={driftX2} drift2={driftY}>
-        <FoodChip src="/food/u11.jpg" alt="Masala Wings" rot="5deg" size="sm" />
-      </FloatingToken>
-      <FloatingToken className="right-[4%] top-[10%]" delay={0.9} drift={driftX2} drift2={driftY}>
-        <FoodChip src="/food/u5.jpg" alt="Bombay Bucket" rot="6deg" size="md" />
-      </FloatingToken>
-      <FloatingToken className="right-[13%] bottom-[11%]" delay={1.4} drift={driftX} drift2={driftY}>
-        <FoodChip src="/food/u8.jpg" alt="Kebab alla brace" rot="-5deg" size="md" />
-      </FloatingToken>
-
-      <div className="container-bombay grid items-center gap-10 lg:grid-cols-[1fr_1fr]">
-        {/* Sinistra — copy */}
-        <motion.div style={{ y: yText, opacity: fade }}>
+          style={reduce ? undefined : { x: signX, y: signY }}
+          className="flex flex-col items-center text-center text-cream"
+        >
           <motion.span
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: easeOut }}
-            className="shimmer-border inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-tandoori"
+            className="inline-flex items-center gap-2 rounded-full border border-tandoori/30 bg-ink-800/60 px-4 py-1.5 font-accent text-sm tracking-[0.3em] text-tandoori backdrop-blur-sm"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mehndi opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-mehndi" />
             </span>
-            100% Halal · Cotto fresco ogni giorno
+            नमस्ते · SEI ARRIVATO DA BOMBAY
           </motion.span>
 
-          <h1 className="mt-6 font-display uppercase leading-[0.85] tracking-tight">
-            <Line delay={0.05} className="block text-5xl text-cream/90 sm:text-6xl">
-              Il pollo fritto
-            </Line>
-            <Line delay={0.15} className="block text-6xl sm:text-8xl">
-              <span className="text-gradient-ember drop-shadow-[0_6px_34px_rgba(255,90,20,0.45)]">più speziato</span>
-            </Line>
-            <Line delay={0.25} className="block text-5xl text-cream/90 sm:text-6xl">
-              della città
-            </Line>
-          </h1>
+          <motion.div
+            initial={reduce ? false : { opacity: 0, scale: 0.5, rotate: -14 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ type: "spring", stiffness: 70, damping: 13, delay: 0.12 }}
+            className="mt-5 w-[clamp(7rem,15vmin,10rem)]"
+          >
+            <Crest reduce={!!reduce} />
+          </motion.div>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.28, ease: easeOut }}
+            className="mt-4"
+          >
+            <h1 className="font-display uppercase leading-[0.82] tracking-tight">
+              <span className="block text-6xl text-cream drop-shadow-[0_6px_40px_rgba(255,140,0,0.45)] sm:text-8xl">Bombay</span>
+            </h1>
+            <div className="mt-2 flex items-center justify-center gap-3 font-accent text-tandoori">
+              <span className="h-px w-8 bg-tandoori/50" />
+              <span className="text-2xl tracking-[0.32em]">FRY &amp; GRILL</span>
+              <span className="h-px w-8 bg-tandoori/50" />
+            </div>
+            <div className="mt-1.5 font-accent text-xs tracking-[0.42em] text-cream/55">INDIAN FRIED CHICKEN</div>
+          </motion.div>
+
+          {/* HALAL — cavallo di battaglia */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.4, type: "spring", stiffness: 120, damping: 14 }}
+            className="mt-5 inline-flex items-center gap-3 rounded-2xl border-2 border-mehndi/60 bg-mehndi/15 px-5 py-2.5 backdrop-blur-sm"
+          >
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-mehndi text-cream ring-2 ring-cream/25">
+              <HalalBadge className="h-6 w-6" />
+            </span>
+            <span className="text-left leading-tight">
+              <span className="block font-display text-xl tracking-wide text-cream sm:text-2xl">100% HALAL</span>
+              <span className="block font-accent text-[10px] tracking-[0.26em] text-cream/75 sm:text-[11px]">حلال · CARNE CERTIFICATA · FILIERA CONTROLLATA</span>
+            </span>
+          </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: easeOut }}
-            className="mt-6 max-w-md text-base leading-relaxed text-cream/75 sm:text-lg"
+            transition={{ duration: 0.6, delay: 0.5, ease: easeOut }}
+            className="mt-5 max-w-md text-base font-medium leading-relaxed text-cream/75"
           >
-            Marinato 24 ore in 11 spezie tostate dell&apos;India, fritto e grigliato al
-            momento. <span className="text-cream">Bombay Fry &amp; Grill</span> — croccante
-            fuori, succoso dentro.
+            Il pollo fritto <span className="font-bold text-gradient-gold">più speziato della città</span>:
+            marinato 24 ore in 11 spezie tostate, fritto e grigliato al momento.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5, ease: easeOut }}
-            className="mt-9 flex flex-wrap items-center gap-4"
+            transition={{ duration: 0.6, delay: 0.6, ease: easeOut }}
+            className="mt-6 flex flex-wrap items-center justify-center gap-3"
           >
-            <a
-              href="#menu"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-ember px-8 py-4 font-accent text-lg tracking-wider text-cream shadow-glow-red transition-transform duration-200 hover:scale-[1.03] active:scale-95"
-            >
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+            <a href="#menu" className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gold-flare px-8 py-4 font-accent text-lg tracking-wider text-ink shadow-glow transition-transform duration-200 hover:scale-[1.03] active:scale-95">
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               Ordina ora
               <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </a>
-            <a
-              href="#menu"
-              className="inline-flex items-center gap-2 rounded-full border border-cream/20 px-7 py-4 font-accent text-lg tracking-wider text-cream/90 transition-colors duration-200 hover:border-tandoori hover:text-tandoori"
-            >
+            <a href="#menu" className="inline-flex items-center gap-2 rounded-full border-2 border-cream/30 px-7 py-4 font-accent text-lg tracking-wider text-cream backdrop-blur-sm transition-colors duration-200 hover:border-cream hover:bg-cream hover:text-ink">
               Scopri il menu
             </a>
           </motion.div>
 
+          {/* statistiche — riempiono e raccontano */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-12 grid max-w-lg grid-cols-4 gap-4 border-t border-cream/10 pt-6"
+            transition={{ duration: 0.6, delay: 0.72 }}
+            className="mt-7 grid w-full max-w-md grid-cols-4 gap-3 border-t border-cream/12 pt-5"
           >
             {stats.map((s) => (
               <div key={s.label}>
-                <div className="font-display text-3xl text-gradient-gold sm:text-4xl">{s.value}</div>
-                <div className="mt-1 text-[11px] uppercase leading-tight tracking-wide text-cream/60">
-                  {s.label}
-                </div>
+                <div className="font-display text-3xl text-tandoori">{s.value}</div>
+                <div className="mt-1 text-[10px] font-semibold uppercase leading-tight tracking-wide text-cream/55">{s.label}</div>
               </div>
             ))}
           </motion.div>
+
+          {/* cibo su mobile (la griglia che riempie quando le colonne sono nascoste) */}
+          <div className="mt-8 grid w-full grid-cols-3 gap-3 lg:hidden">
+            {MOBILE_FOOD.map((f, i) => <FoodCard key={f.src} {...f} delay={0.5 + i * 0.1} compact />)}
+          </div>
         </motion.div>
 
-        {/* Destra — LOGO COMPLETO grande */}
-        <motion.div
-          style={{ y: yLogo }}
-          className="relative mx-auto hidden w-full max-w-[560px] lg:block"
-        >
-          {/* alone di fuoco dietro al logo */}
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <motion.div
-              className="absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-saffron/30 blur-[100px]"
-              animate={reduce ? undefined : { scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <div className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indian/25 blur-[90px]" />
-          </div>
-
-          {/* Piatto luminoso (charger plate) dietro l'emblema */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-0 aspect-square w-[112%] -translate-x-1/2 -translate-y-1/2">
-            {/* disco scuro con bordo oro */}
-            <div className="absolute inset-[6%] rounded-full bg-gradient-to-b from-ink-800/70 to-ink-900/85 ring-1 ring-tandoori/25 shadow-[inset_0_2px_40px_rgba(0,0,0,0.6)]" />
-            {/* anello oro a tratteggio rotante */}
-            <div
-              className="ring-dots absolute inset-0 rounded-full text-tandoori opacity-70 animate-spin-slow"
-              style={{
-                WebkitMaskImage:
-                  "radial-gradient(closest-side, transparent 70%, #000 72%, #000 80%, transparent 83%)",
-                maskImage:
-                  "radial-gradient(closest-side, transparent 70%, #000 72%, #000 80%, transparent 83%)",
-              }}
-            />
-            {/* anello sottile interno */}
-            <div className="absolute inset-[12%] rounded-full border border-tandoori/15" />
-          </div>
-
-          <Paisley className="pointer-events-none absolute -right-16 -top-10 h-72 w-72 text-tandoori/10 animate-spin-slow" />
-
-          <motion.div
-            style={reduce ? undefined : { rotateX: logoRotX, rotateY: logoRotY }}
-            className="perspective"
-          >
-            <motion.div
-              animate={reduce ? undefined : { y: [0, -12, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative mx-auto w-[84%]"
-            >
-              {/* Cornice oro brass: trasforma il PNG in un'insegna premium */}
-              <div className="rounded-[2.3rem] bg-gold-flare p-[2px] shadow-[0_34px_90px_-22px_rgba(255,140,0,0.5)]">
-                {/* riflesso specular in alto */}
-                <span className="pointer-events-none absolute inset-x-6 top-0 h-1/3 rounded-t-[2.3rem] bg-gradient-to-b from-white/15 to-transparent" />
-                <div className="rounded-[2.15rem] bg-[#1d0707] p-2.5 ring-1 ring-black/40">
-                  <Image
-                    src="/logo-lockup.png"
-                    alt="Bombay Fry & Grill — Indian Fried Chicken — Halal"
-                    width={710}
-                    height={662}
-                    priority
-                    className="w-full rounded-[1.8rem]"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* cartellino prezzo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
-            animate={{ opacity: 1, scale: 1, rotate: -8 }}
-            transition={{ delay: 0.8, type: "spring", stiffness: 200, damping: 12 }}
-            className="absolute bottom-4 -left-2 z-10 rounded-2xl bg-ember px-5 py-3 shadow-glow-red"
-          >
-            <div className="font-accent text-xs tracking-widest text-cream/80">DA</div>
-            <div className="font-display text-3xl leading-none text-cream">€6,90</div>
-          </motion.div>
-
-          {/* Sigillo Halal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5, rotate: 16 }}
-            animate={{ opacity: 1, scale: 1, rotate: 12 }}
-            transition={{ delay: 1, type: "spring", stiffness: 200, damping: 12 }}
-            className="absolute -top-1 right-1 z-10 grid h-20 w-20 place-items-center rounded-full bg-mehndi text-cream shadow-xl ring-2 ring-cream/30"
-          >
-            <div className="text-center leading-none">
-              <HalalBadge className="mx-auto h-7 w-7" />
-              <span className="mt-1 block font-accent text-[10px] tracking-[0.2em]">HALAL</span>
-            </div>
-          </motion.div>
-        </motion.div>
+        {/* ── colonna cibo DESTRA ── */}
+        <div className="hidden flex-col gap-4 lg:flex">
+          {RIGHT_FOOD.map((f, i) => <FoodCard key={f.src} {...f} delay={0.5 + i * 0.12} />)}
+        </div>
       </div>
 
-      {/* Scroll cue */}
-      <motion.div
-        style={{ opacity: fade }}
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-cream/50 sm:flex"
-      >
-        <span className="font-accent text-xs tracking-[0.3em]">SCORRI</span>
-        <span className="flex h-9 w-5 justify-center rounded-full border border-cream/25 p-1">
-          <motion.span
-            animate={reduce ? undefined : { y: [0, 10, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity }}
-            className="h-1.5 w-1.5 rounded-full bg-saffron"
-          />
-        </span>
-      </motion.div>
     </section>
   );
 }
 
-function Line({ children, delay, className }: { children: React.ReactNode; delay: number; className?: string }) {
+/* Patatine VERE ritagliate dalla foto (hero-1.png), su trasparente. Levitano
+   in lontananza a varie prospettive — al posto delle braci-"pallini".
+   Deterministiche (no Math.random → no mismatch SSR). */
+const FRY_SRC = ["/food/fry-a.png", "/food/fry-b.png"];
+const FRY_PARTICLES = Array.from({ length: 11 }, (_, i) => ({
+  src: FRY_SRC[i % 2],
+  left: (i * 71 + 4) % 100,
+  len: 34 + (i % 4) * 14, // 34..76 px (mix vicino/lontano → profondità)
+  rot: (i * 67) % 360, // patatine vere → ruotano naturali a ogni angolo
+  spin: (i % 2 ? 1 : -1) * (28 + (i % 3) * 22),
+  dur: 8 + (i % 5),
+  delay: (i % 7) * 0.8,
+  drift: (i % 2 ? 1 : -1) * (10 + (i % 4) * 8),
+  rise: 200 + (i % 5) * 70,
+}));
+
+function FloatingFries() {
+  const reduce = useReducedMotion();
+  if (reduce) return null;
   return (
-    <span className="block overflow-hidden">
-      <motion.span
-        initial={{ y: "110%" }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, delay, ease: easeOut }}
-        className={className}
-      >
-        {children}
-      </motion.span>
-    </span>
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      {FRY_PARTICLES.map((p, i) => (
+        <motion.div
+          key={i}
+          className="absolute bottom-0"
+          style={{ left: `${p.left}%` }}
+          initial={{ y: 30, opacity: 0, rotate: p.rot }}
+          animate={{ y: -p.rise, x: [0, p.drift, 0], rotate: p.rot + p.spin, opacity: [0, 0.9, 0] }}
+          transition={{ duration: p.dur, delay: p.delay, repeat: Infinity, ease: "easeOut" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={p.src} alt="" style={{ height: p.len }} className="w-auto" />
+        </motion.div>
+      ))}
+    </div>
   );
 }
 
-function FloatingToken({
-  children,
-  className,
-  delay,
-  drift,
-  drift2,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay: number;
-  drift: MotionValue<number>;
-  drift2: MotionValue<number>;
-}) {
+function FoodCard({ src, alt, delay = 0, compact = false }: { src: string; alt: string; delay?: number; compact?: boolean }) {
+  const reduce = useReducedMotion();
   return (
-    <motion.div style={{ x: drift, y: drift2 }} className={`pointer-events-none absolute -z-0 ${className}`}>
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.8 + delay, type: "spring", stiffness: 160, damping: 12 }}
-        className="animate-float"
-      >
-        {children}
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function FoodChip({
-  src,
-  alt,
-  rot,
-  size = "md",
-}: {
-  src: string;
-  alt: string;
-  rot: string;
-  size?: "sm" | "md" | "lg";
-}) {
-  const dim =
-    size === "lg"
-      ? "h-32 w-32 sm:h-44 sm:w-44"
-      : size === "sm"
-        ? "h-24 w-24 sm:h-28 sm:w-28"
-        : "h-28 w-28 sm:h-36 sm:w-36";
-  return (
-    <div
-      style={{ transform: `rotate(${rot})` }}
-      className={`${dim} overflow-hidden rounded-3xl border-2 border-tandoori/50 shadow-[0_28px_70px_-18px_rgba(255,140,0,0.5)] ring-1 ring-black/30`}
+    <motion.figure
+      initial={reduce ? false : { opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay, ease: easeOut }}
+      className="group relative overflow-hidden rounded-3xl border border-cream/10 shadow-card"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} className="h-full w-full object-cover" />
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${compact ? "h-28" : "h-48 xl:h-56"}`}
+      />
+      <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/90 to-transparent p-3 text-left">
+        <span className="font-accent text-sm tracking-wide text-cream">{alt}</span>
+      </figcaption>
+    </motion.figure>
+  );
+}
+
+/* ── medaglione: il gallo del logo, acceso, con anello di brand che gira ── */
+function Crest({ reduce }: { reduce: boolean }) {
+  return (
+    <div className="relative aspect-square w-full">
+      <motion.div
+        className="absolute inset-[-12%] rounded-full bg-saffron/30 blur-[34px]"
+        animate={reduce ? undefined : { opacity: [0.55, 1, 0.55], scale: [1, 1.05, 1] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <div className="absolute inset-0 rounded-full bg-gold-flare p-[3px] shadow-glow">
+        <div className="h-full w-full rounded-full bg-gradient-to-b from-ink-700 to-ink-900 ring-1 ring-black/40 shadow-[inset_0_2px_50px_rgba(0,0,0,0.7)]" />
+      </div>
+      <motion.div className="absolute inset-0" animate={reduce ? undefined : { rotate: 360 }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }}>
+        <svg viewBox="0 0 200 200" className="h-full w-full">
+          <defs><path id="hero-ring" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" /></defs>
+          <text className="fill-tandoori font-accent uppercase" style={{ fontSize: 10.5, letterSpacing: 4 }}>
+            <textPath href="#hero-ring" startOffset="0">✦ BOMBAY FRY &amp; GRILL ✦ INDIAN FRIED CHICKEN ✦ 100% HALAL ✦ COTTO FRESCO ✦</textPath>
+          </text>
+        </svg>
+      </motion.div>
+      <div className="absolute inset-[20%] overflow-hidden rounded-full bg-ink-900 ring-1 ring-tandoori/30 shadow-[inset_0_0_24px_rgba(0,0,0,0.7)]">
+        <Image src="/logo-mark.png" alt="Bombay Fry & Grill — il gallo" width={495} height={342} priority className="h-full w-full object-cover" />
+      </div>
     </div>
   );
 }

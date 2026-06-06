@@ -104,7 +104,7 @@ export default function HalalReel() {
 function HalalSeal() {
   const reduce = useReducedMotion();
   return (
-    <div className="relative mx-auto grid aspect-square w-full max-w-[20rem] place-items-center">
+    <div className="relative mx-auto grid aspect-square w-full max-w-[26rem] place-items-center">
       {/* alone pulsante */}
       <motion.div
         className="absolute inset-2 rounded-full bg-saffron/25 blur-[70px]"
@@ -139,20 +139,17 @@ function HalalSeal() {
         </svg>
       </motion.div>
 
-      {/* logo (badge circolare) che gira lentamente */}
-      <motion.div
-        className="absolute inset-[20%] overflow-hidden rounded-full ring-1 ring-tandoori/25 shadow-[0_10px_40px_-10px_rgba(255,140,0,0.5)]"
-        animate={reduce ? undefined : { rotate: -360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-      >
+      {/* Galletto centrale STATICO (niente testo): gira solo l'anello HALAL
+          esterno → si elimina il "BOMBAY FRY & GRILL" doppio e l'effetto confuso */}
+      <div className="absolute inset-[31%] overflow-hidden rounded-full bg-ink-900 ring-1 ring-tandoori/30 shadow-[inset_0_0_24px_rgba(0,0,0,0.7)]">
         <Image
-          src="/logo-badge.png"
-          alt="Sigillo Bombay Fry & Grill"
-          width={204}
-          height={208}
-          className="h-full w-full scale-[1.08] object-cover"
+          src="/logo-mark.png"
+          alt="Galletto Bombay Fry & Grill"
+          width={495}
+          height={342}
+          className="h-full w-full object-cover"
         />
-      </motion.div>
+      </div>
 
       {/* chip HALAL fisso in basso */}
       <div className="absolute -bottom-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full bg-mehndi px-4 py-1.5 text-cream shadow-xl ring-2 ring-cream/20">

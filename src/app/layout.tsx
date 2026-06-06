@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Anton, Bebas_Neue, Plus_Jakarta_Sans } from "next/font/google";
+import { Anton, Bebas_Neue, Plus_Jakarta_Sans, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const anton = Anton({
   weight: "400",
@@ -47,7 +50,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="it" className="scroll-smooth">
+    <html lang="it" className={cn("scroll-smooth", "font-sans", geist.variable)}>
       <body
         className={`${anton.variable} ${bebas.variable} ${jakarta.variable} font-body bg-ink text-cream antialiased selection:bg-saffron selection:text-ink`}
       >

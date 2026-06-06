@@ -66,6 +66,23 @@ export default function Footer() {
             <a href="#" className="transition-colors hover:text-cream">Cookie</a>
           </div>
         </div>
+
+        {/* Firma Wowspace — presente in fondo a tutti i siti */}
+        <div className="border-t border-cream/5 py-6 text-center">
+          <a
+            href="https://wowspaceweb.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex flex-col items-center gap-1"
+          >
+            <span className="font-accent text-sm tracking-[0.25em] text-cream/65 transition-colors group-hover:text-cream">
+              REALIZZATO DA <span className="text-gradient-gold font-bold">WOWSPACE</span>
+            </span>
+            <span className="font-accent text-[10px] tracking-[0.4em] text-cream/40 transition-colors group-hover:text-tandoori">
+              SITES · CRM · AI SYSTEMS
+            </span>
+          </a>
+        </div>
       </div>
     </footer>
   );

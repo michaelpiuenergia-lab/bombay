@@ -1,3 +1,4 @@
+import Intro from "@/components/Intro";
 import Navbar from "@/components/Navbar";
 import Atmosphere from "@/components/Atmosphere";
 import Hero from "@/components/Hero";
@@ -16,6 +17,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main id="top" className="relative">
+      <Intro />
       <Atmosphere />
       <Navbar />
       <Hero />

@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 :root {
   --bombay-red: #b71c1c;
@@ -15,10 +14,7 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
-    background-color: #120404;
-    background-image:
-      radial-gradient(80% 55% at 50% -12%, rgba(255, 140, 0, 0.12), transparent 60%),
-      radial-gradient(55% 45% at 100% 0%, rgba(183, 28, 28, 0.14), transparent 55%);
+    background-color: #1a0b08;
     overflow-x: hidden;
   }
   ::selection {
