@@ -44,11 +44,11 @@ export default function HalalReel() {
     <section
       id="reel"
       aria-label="Tutto fritto al momento, tutto Halal"
-      className="relative overflow-hidden bg-gradient-to-b from-tandoori via-tandoori to-saffron py-16 sm:py-20"
+      className="relative overflow-hidden bg-gradient-to-b from-cream-200 to-cream-50 py-16 sm:py-20"
     >
-      {/* luce bianca calda di fondo (sezione ORO piena) */}
+      {/* base CREMA (continua la sabbia del menu qui sopra); l'oro è solo un alone d'accento */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-1/3 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-white/25 blur-[150px]" />
+        <div className="absolute left-1/2 top-1/3 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-tandoori/20 blur-[150px]" />
       </div>
 
       {/* kicker */}
@@ -104,14 +104,14 @@ function HalalSeal() {
   const reduce = useReducedMotion();
   return (
     <div className="relative mx-auto grid aspect-square w-full max-w-[26rem] place-items-center">
-      {/* alone pulsante — luce bianca calda */}
+      {/* alone pulsante — oro d'accento sul fondo crema */}
       <motion.div
-        className="absolute inset-2 rounded-full bg-white/40 blur-[70px]"
+        className="absolute inset-2 rounded-full bg-tandoori/35 blur-[70px]"
         animate={reduce ? undefined : { opacity: [0.6, 1, 0.6], scale: [1, 1.05, 1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* disco bianco caldo con bordo rosso: timbro di garanzia sull'oro */}
+      {/* disco bianco caldo con bordo rosso: timbro di garanzia sul crema */}
       <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-cream ring-2 ring-indian/70 shadow-warm-red" />
 
       {/* anello di testo HALAL che gira */}

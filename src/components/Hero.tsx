@@ -16,10 +16,10 @@ import { stats } from "@/lib/data";
 
 /* ════════════════════════════════════════════════════════════════════════
    HERO — "SEI ARRIVATO DA BOMBAY"
-   Stesso sfondo delle sezioni che piacciono (Atmosphere + glow morbidi).
-   PIENA come HalalReel: identità del brand al centro (gallo + insegna +
-   timbro HALAL) affiancata da DUE colonne di cibo ordinate. Niente vuoto,
-   niente immagini sparse. Il logo è il re, l'Halal il cavallo di battaglia.
+   Base CREMA come la sezione menu (la via di mezzo chiesta dal titolare):
+   l'oro resta SOLO su badge/medaglione/glow, il rosso su CTA e accenti.
+   Identità del brand al centro (gallo + insegna + timbro HALAL) affiancata
+   da DUE colonne di cibo. Il logo è il re, l'Halal il cavallo di battaglia.
    ════════════════════════════════════════════════════════════════════════ */
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
@@ -61,12 +61,12 @@ export default function Hero() {
     <section
       ref={ref}
       onMouseMove={onMove}
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-b from-sunny via-tandoori to-saffron py-24"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-b from-cream-50 via-cream to-cream-200 py-24"
     >
-      {/* ░░ AMBIENTE: oro squillante da insegna + luce bianca morbida ░░ */}
+      {/* ░░ AMBIENTE: base crema luminosa, l'oro è solo un alone d'accento ░░ */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-1/4 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-white/30 blur-[150px]" />
-        <div className="absolute left-1/2 bottom-0 h-[28rem] w-[40rem] -translate-x-1/2 rounded-full bg-indian/15 blur-[150px]" />
+        <div className="absolute left-1/2 top-1/4 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-tandoori/25 blur-[150px]" />
+        <div className="absolute left-1/2 bottom-0 h-[28rem] w-[40rem] -translate-x-1/2 rounded-full bg-saffron/15 blur-[150px]" />
       </div>
 
       {/* tricolore */}
@@ -117,7 +117,7 @@ export default function Hero() {
             className="mt-4"
           >
             <h1 className="font-display uppercase leading-[0.82] tracking-tight">
-              <span className="block text-6xl text-ink drop-shadow-[0_6px_30px_rgba(255,255,255,0.55)] sm:text-8xl">Bombay</span>
+              <span className="block text-6xl text-ink drop-shadow-[0_6px_30px_rgba(242,183,5,0.45)] sm:text-8xl">Bombay</span>
             </h1>
             <div className="mt-2 flex items-center justify-center gap-3 font-accent text-indian">
               <span className="h-px w-8 bg-indian/50" />
@@ -293,11 +293,11 @@ function Crest({ reduce }: { reduce: boolean }) {
   return (
     <div className="relative aspect-square w-full">
       <motion.div
-        className="absolute inset-[-12%] rounded-full bg-white/50 blur-[34px]"
+        className="absolute inset-[-12%] rounded-full bg-tandoori/40 blur-[34px]"
         animate={reduce ? undefined : { opacity: [0.55, 1, 0.55], scale: [1, 1.05, 1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* medaglione BIANCO con cornice rossa: un timbro da insegna sul muro d'oro */}
+      {/* medaglione BIANCO con cornice rossa e alone oro: timbro da insegna sul muro crema */}
       <div className="absolute inset-0 rounded-full bg-ember p-[3px] shadow-warm-red">
         <div className="h-full w-full rounded-full bg-gradient-to-b from-white to-cream" />
       </div>
