@@ -13,10 +13,16 @@ const A: Record<Accent, { solid: string; addHover: string }> = {
   cream: { solid: "bg-indian text-cream", addHover: "group-hover:bg-indian group-hover:text-cream" },
 };
 
-export default function MenuSection() {
-  const [cat, setCat] = useState<CategoryId>(categories[0].id);
-  const items = menu.filter((m) => m.cat === cat);
-  const activeCat = categories.find((c) => c.id === cat)!;
+export default function MenuSection({ items }: { items?: MenuItem[] }) {
+  // `items` arriva dal gestionale (fetch server-side in app/page.tsx); se il
+  // fetch fallisce o è vuoto si ricade sul menu hardcoded: mai sezioni vuote.
+  const data = items && items.length > 0 ? items : menu;
+  // Solo le sezioni che hanno almeno un piatto (col menu remoto una sezione
+  // potrebbe restare senza prodotti: niente tab che aprono il vuoto).
+  const visibleCategories = categories.filter((c) => data.some((m) => m.cat === c.id));
+  const [cat, setCat] = useState<CategoryId>(visibleCategories[0].id);
+  const activeCat = visibleCategories.find((c) => c.id === cat) ?? visibleCategories[0];
+  const shown = data.filter((m) => m.cat === activeCat.id);
 
   return (
     <section id="menu" className="relative overflow-hidden bg-gradient-to-b from-cream to-[#FCE6C4] py-24 sm:py-32">
@@ -35,13 +41,13 @@ export default function MenuSection() {
         />
 
         <div className="mt-10 flex flex-wrap justify-center gap-2 sm:gap-3">
-          {categories.map((c) => (
+          {visibleCategories.map((c) => (
             <button
               key={c.id}
               onClick={() => setCat(c.id)}
-              aria-pressed={cat === c.id}
+              aria-pressed={activeCat.id === c.id}
               className={`rounded-full px-5 py-2.5 font-accent text-base tracking-wider transition-all duration-200 ${
-                cat === c.id
+                activeCat.id === c.id
                   ? `${A[c.accent].solid} shadow-lg`
                   : "border border-ink/15 text-ink/65 hover:border-ink/40 hover:text-ink"
               }`}
@@ -53,14 +59,14 @@ export default function MenuSection() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={cat}
+            key={activeCat.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.35 }}
             className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
           >
-            {items.map((item, i) => (
+            {shown.map((item, i) => (
               <Card key={item.id} item={item} accent={activeCat.accent} i={i} />
             ))}
           </motion.div>

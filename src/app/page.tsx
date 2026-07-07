@@ -13,8 +13,12 @@ import Experience from "@/components/Experience";
 import Reviews from "@/components/Reviews";
 import AppCta from "@/components/AppCta";
 import Footer from "@/components/Footer";
+import { fetchGestionaleMenu } from "@/lib/gestionale";
 
-export default function Home() {
+export default async function Home() {
+  // Menu vivo dal gestionale (fonte di verità, cache 5 min). Se il fetch
+  // fallisce torna null e MenuSection usa il fallback hardcoded di lib/data.
+  const remoteMenu = await fetchGestionaleMenu();
   return (
     <main id="top" className="relative">
       <Intro />
@@ -24,7 +28,7 @@ export default function Home() {
       <IndiaBand />
       <FoodGallery />
       <Marquee />
-      <MenuSection />
+      <MenuSection items={remoteMenu ?? undefined} />
       <HalalReel />
       <HeatLevels />
       <WhyBombay />
