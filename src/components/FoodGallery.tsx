@@ -38,7 +38,7 @@ function Cell({ className, src, alt }: { className: string; src: string; alt: st
   return (
     <motion.div
       style={{ translate, scale }}
-      className={`relative overflow-hidden rounded-3xl border border-cream/15 shadow-card ${className}`}
+      className={`relative overflow-hidden rounded-3xl border-[3px] border-white shadow-warm ${className}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={alt} className="h-full w-full object-cover" />
@@ -73,15 +73,15 @@ function Scene() {
         style={{ opacity: tOpacity, scale: tScale }}
         className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center text-center"
       >
-        <span className="font-accent text-sm tracking-[0.35em] text-tandoori drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+        <span className="rounded-full bg-tandoori px-4 py-1.5 font-accent text-sm tracking-[0.35em] text-ink shadow-warm">
           हाँ, अब भूख लगी? · HAI GIÀ FAME?
         </span>
-        <h2 className="mt-2 font-display text-6xl uppercase leading-[0.85] text-cream drop-shadow-[0_6px_24px_rgba(0,0,0,0.85)] sm:text-8xl">
+        <h2 className="mt-4 font-display text-6xl uppercase leading-[0.85] text-white drop-shadow-[0_6px_24px_rgba(26,6,6,0.75)] sm:text-8xl">
           Guarda
           <br />
-          <span className="text-gradient-ember">che roba</span>
+          <span className="text-gradient-gold drop-shadow-[0_4px_16px_rgba(26,6,6,0.6)]">che roba</span>
         </h2>
-        <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-ink/60 px-4 py-1.5 font-accent text-sm tracking-widest text-cream backdrop-blur">
+        <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-1.5 font-accent text-sm tracking-widest text-indian shadow-warm backdrop-blur">
           ↓ scrolla per scoprire
         </span>
       </motion.div>

@@ -44,21 +44,22 @@ export default function IndiaBand() {
       {/* tricolore accento */}
       <div className="grid h-1.5 w-full grid-cols-3">
         <div className="bg-saffron" />
-        <div className="bg-cream" />
+        <div className="bg-white" />
         <div className="bg-mehndi" />
       </div>
 
-      <div className="relative bg-gradient-to-br from-saffron via-tandoori to-indian py-16 sm:py-20">
+      {/* la sezione d'IMPATTO: rosso indiano pieno, testo crema, accenti oro */}
+      <div className="relative bg-gradient-to-br from-indian to-indian-700 py-16 sm:py-20">
         {/* mandala decorativi */}
-        <Mandala className="pointer-events-none absolute -left-16 -top-10 h-64 w-64 animate-spin-slow text-ink/15" />
-        <Mandala className="pointer-events-none absolute -right-20 -bottom-16 h-80 w-80 animate-spin-slow text-ink/10" />
+        <Mandala className="pointer-events-none absolute -left-16 -top-10 h-64 w-64 animate-spin-slow text-tandoori/25" />
+        <Mandala className="pointer-events-none absolute -right-20 -bottom-16 h-80 w-80 animate-spin-slow text-tandoori/15" />
 
-        <div className="container-bombay relative text-center text-ink">
+        <div className="container-bombay relative text-center text-cream">
           <motion.span
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full bg-ink/15 px-4 py-1.5 font-accent text-sm tracking-[0.3em]"
+            className="inline-flex items-center gap-2 rounded-full bg-tandoori px-4 py-1.5 font-accent text-sm tracking-[0.3em] text-ink"
           >
             नमस्ते · NAMASTÉ
           </motion.span>
@@ -78,10 +79,10 @@ export default function IndiaBand() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mx-auto mt-4 max-w-xl text-base font-medium text-ink/75 sm:text-lg"
+            className="mx-auto mt-4 max-w-xl text-base font-medium text-cream/85 sm:text-lg"
           >
             Spezie tostate, ricette di famiglia e il fuoco del tandoor. Street food
-            indiano, croccante e <strong>100% Halal</strong>.
+            indiano, croccante e <strong className="text-tandoori-400">100% Halal</strong>.
           </motion.p>
 
           <motion.div
@@ -89,14 +90,14 @@ export default function IndiaBand() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="mt-7 inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3 text-cream shadow-xl"
+            className="mt-7 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-ink shadow-warm"
           >
             <HalalBadge className="h-7 w-7 text-mehndi" />
             <span className="text-left leading-tight">
-              <span className="block font-accent text-base tracking-widest text-tandoori">
+              <span className="block font-accent text-base tracking-widest text-mehndi">
                 HALAL CERTIFICATO
               </span>
-              <span className="block text-xs text-cream/70">حلال · Filiera controllata</span>
+              <span className="block text-xs text-ink/60">حلال · Filiera controllata</span>
             </span>
           </motion.div>
         </div>

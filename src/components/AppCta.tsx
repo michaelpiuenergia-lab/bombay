@@ -10,7 +10,7 @@ export default function AppCta() {
   return (
     <section id="locali" className="relative py-20 sm:py-28">
       <div className="container-bombay">
-        <div className="grain relative overflow-hidden rounded-[2.5rem] bg-ember px-6 py-14 sm:px-14 sm:py-20">
+        <div className="grain relative overflow-hidden rounded-[2.5rem] bg-ember px-6 py-14 shadow-warm-red ring-4 ring-tandoori/60 sm:px-14 sm:py-20">
           <Paisley className="absolute -left-16 -top-10 h-72 w-72 text-cream/10" />
           <Paisley className="absolute -bottom-20 -right-10 h-80 w-80 rotate-180 text-cream/10" />
 

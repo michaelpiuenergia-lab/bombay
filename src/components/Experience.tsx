@@ -51,7 +51,7 @@ export default function Experience() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6 }}
-              className={`group relative h-64 overflow-hidden rounded-3xl border border-cream/10 transition-colors duration-300 hover:border-tandoori/45 sm:h-72 ${s.span}`}
+              className={`group relative h-64 overflow-hidden rounded-3xl border-[3px] border-white shadow-warm transition-colors duration-300 hover:border-tandoori sm:h-72 ${s.span}`}
             >
               <Image
                 src={s.src}

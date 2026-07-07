@@ -26,7 +26,7 @@ export default function Navbar() {
       <nav
         className={`container-bombay flex items-center justify-between rounded-2xl border px-4 py-3 transition-all duration-300 sm:px-6 ${
           scrolled
-            ? "border-cream/10 bg-ink-800/80 shadow-card backdrop-blur-xl"
+            ? "border-tandoori/40 bg-cream-50/85 shadow-warm backdrop-blur-xl"
             : "border-transparent bg-transparent"
         }`}
       >
@@ -45,10 +45,10 @@ export default function Navbar() {
             </span>
           </span>
           <span className="leading-none">
-            <span className="block font-display text-xl uppercase tracking-wide text-cream">
+            <span className="block font-display text-xl uppercase tracking-wide text-ink">
               Bombay
             </span>
-            <span className="block font-accent text-[10px] tracking-[0.35em] text-tandoori">
+            <span className="block font-accent text-[10px] tracking-[0.35em] text-indian">
               FRY &amp; GRILL
             </span>
           </span>
@@ -60,7 +60,7 @@ export default function Navbar() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="rounded-full px-4 py-2.5 text-sm font-medium text-cream/80 transition-colors hover:bg-cream/5 hover:text-cream"
+                className="rounded-full px-4 py-2.5 text-sm font-semibold text-ink/75 transition-colors hover:bg-ink/5 hover:text-ink"
               >
                 {l.label}
               </a>
@@ -71,7 +71,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <a
             href="#menu"
-            className="hidden rounded-full bg-tandoori px-6 py-2.5 font-accent text-base tracking-wider text-ink transition-transform duration-200 hover:scale-105 active:scale-95 sm:inline-block"
+            className="hidden rounded-full bg-indian px-6 py-2.5 font-accent text-base tracking-wider text-cream shadow-warm-red transition-transform duration-200 hover:scale-105 active:scale-95 sm:inline-block"
           >
             Ordina ora
           </a>
@@ -79,7 +79,7 @@ export default function Navbar() {
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label="Apri menu"
-            className="grid h-11 w-11 place-items-center rounded-xl border border-cream/15 text-cream lg:hidden"
+            className="grid h-11 w-11 place-items-center rounded-xl border border-ink/15 bg-cream-50/70 text-ink backdrop-blur lg:hidden"
           >
             <div className="space-y-1.5">
               <span className={`block h-0.5 w-5 bg-current transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
@@ -97,14 +97,14 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="container-bombay mt-2 overflow-hidden rounded-2xl border border-cream/10 bg-ink-800/95 p-3 backdrop-blur-xl lg:hidden"
+            className="container-bombay mt-2 overflow-hidden rounded-2xl border border-tandoori/40 bg-cream-50/95 p-3 shadow-warm backdrop-blur-xl lg:hidden"
           >
             {navLinks.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-xl px-4 py-3 font-accent text-xl tracking-wide text-cream/85 hover:bg-cream/5"
+                className="block rounded-xl px-4 py-3 font-accent text-xl tracking-wide text-ink/85 hover:bg-tandoori/20"
               >
                 {l.label}
               </a>

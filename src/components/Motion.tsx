@@ -58,7 +58,9 @@ export function SectionHeading({
   center?: boolean;
   tone?: "light" | "dark";
 }) {
-  const dark = tone === "dark"; // su sfondo chiaro → testo scuro
+  // Il sito ora è tutto su fondi chiari: il titolo è SEMPRE ink.
+  // I due tone cambiano solo l'accento del kicker: "dark" = rosso, "light" = oro pieno.
+  const dark = tone === "dark";
   return (
     <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       <Reveal>
@@ -66,28 +68,22 @@ export function SectionHeading({
           className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-accent text-sm tracking-[0.25em] ${
             dark
               ? "border border-indian/30 bg-indian/10 text-indian"
-              : "border border-tandoori/30 bg-tandoori/10 text-tandoori"
+              : "bg-tandoori text-ink shadow-warm"
           }`}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-saffron" />
+          <span className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-saffron" : "bg-indian"}`} />
           {kicker}
         </span>
       </Reveal>
       <Reveal delay={0.08}>
-        <h2
-          className={`mt-5 font-display text-4xl uppercase leading-[0.95] sm:text-6xl ${
-            dark ? "text-ink" : "text-cream"
-          }`}
-        >
+        <h2 className="mt-5 font-display text-4xl uppercase leading-[0.95] text-ink sm:text-6xl">
           {title}{" "}
-          {highlight && (
-            <span className={dark ? "text-gradient-ember" : "text-gradient-gold"}>{highlight}</span>
-          )}
+          {highlight && <span className="text-gradient-ember">{highlight}</span>}
         </h2>
       </Reveal>
       {desc && (
         <Reveal delay={0.16}>
-          <p className={`mt-5 text-base leading-relaxed sm:text-lg ${dark ? "text-ink/70" : "text-cream/70"}`}>
+          <p className="mt-5 text-base leading-relaxed text-ink/70 sm:text-lg">
             {desc}
           </p>
         </Reveal>

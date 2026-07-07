@@ -10,8 +10,8 @@ const CARD: Record<Accent, { bg: string; title: string; desc: string; icon: stri
   saffron: { bg: "bg-saffron", title: "text-ink", desc: "text-ink/80", icon: "bg-ink/10 text-ink" },
   tandoori: { bg: "bg-tandoori", title: "text-ink", desc: "text-ink/80", icon: "bg-ink/10 text-ink" },
   mehndi: { bg: "bg-mehndi", title: "text-cream", desc: "text-cream/85", icon: "bg-cream/15 text-cream" },
-  // Su sezione chiara la card "cream" sparirebbe → diventa una card bianca pulita
-  cream: { bg: "bg-white ring-1 ring-ink/10", title: "text-ink", desc: "text-ink/65", icon: "bg-saffron/15 text-saffron" },
+  // Su sezione chiara la card "cream" sparirebbe → diventa una card bianca con bordo oro
+  cream: { bg: "bg-white ring-2 ring-tandoori/50", title: "text-ink", desc: "text-ink/65", icon: "bg-tandoori/20 text-saffron" },
 };
 
 export default function WhyBombay() {
@@ -60,7 +60,7 @@ export default function WhyBombay() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -4 }}
-                className={`grain relative overflow-hidden rounded-3xl p-7 shadow-[0_26px_55px_-30px_rgba(74,10,10,0.5)] ${c.bg}`}
+                className={`grain relative overflow-hidden rounded-3xl p-7 shadow-[0_26px_50px_-28px_rgba(255,140,0,0.5)] ${c.bg}`}
               >
                 <Paisley className="pointer-events-none absolute -right-8 -bottom-8 h-36 w-36 opacity-10" />
                 <span className={`relative grid h-14 w-14 place-items-center rounded-2xl ${c.icon}`}>

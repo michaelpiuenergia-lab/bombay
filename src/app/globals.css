@@ -7,6 +7,8 @@
   --bombay-green: #2e7d32;
   --bombay-gold: #f2b705;
   --bombay-cream: #fff3e0;
+  --bombay-cream-bg: #fff8ee;
+  --bombay-ink: #1a0606;
 }
 
 @layer base {
@@ -14,17 +16,18 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
-    background-color: #1a0b08;
+    background-color: var(--bombay-cream-bg);
     overflow-x: hidden;
   }
   ::selection {
-    background: var(--bombay-saffron);
-    color: #1a0606;
+    background: var(--bombay-gold);
+    color: var(--bombay-ink);
   }
-  /* Focus visibile per navigazione da tastiera (UX: focus-states) */
+  /* Focus visibile per navigazione da tastiera (UX: focus-states).
+     Rosso brand: su sfondi crema/oro l'oro non si vedrebbe. */
   a:focus-visible,
   button:focus-visible {
-    outline: 2px solid var(--bombay-gold);
+    outline: 2px solid var(--bombay-red);
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -49,17 +52,17 @@
     color: transparent;
   }
 
-  /* Outlined display text */
+  /* Outlined display text — variante chiara: contorno ink su fondi crema/oro */
   .text-outline {
     color: transparent;
-    -webkit-text-stroke: 2px rgba(255, 243, 224, 0.25);
+    -webkit-text-stroke: 2px rgba(26, 6, 6, 0.28);
   }
 
-  /* Animated shimmer pill */
+  /* Animated shimmer pill — interno bianco caldo, bordo oro→rosso */
   .shimmer-border {
     position: relative;
     background:
-      linear-gradient(#2a0a0a, #2a0a0a) padding-box,
+      linear-gradient(#fff8ee, #fff8ee) padding-box,
       linear-gradient(120deg, #f2b705, #ff8c00, #b71c1c, #f2b705) border-box;
     border: 1.5px solid transparent;
   }
@@ -98,16 +101,17 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — chiara con thumb oro */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #1a0606;
+  background: #fff3e0;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#ff8c00, #b71c1c);
+  background: linear-gradient(#ffcb2b, #f2b705);
   border-radius: 999px;
+  border: 2px solid #fff3e0;
 }
 
 @media (prefers-reduced-motion: reduce) {

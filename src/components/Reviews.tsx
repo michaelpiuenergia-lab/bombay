@@ -27,7 +27,7 @@ function Stars() {
 
 function Card({ name, text, city }: Review) {
   return (
-    <figure className="flex w-80 shrink-0 flex-col rounded-3xl bg-white p-6 ring-1 ring-ink/5 shadow-[0_24px_55px_-30px_rgba(74,10,10,0.45)]">
+    <figure className="flex w-80 shrink-0 flex-col rounded-3xl bg-white p-6 ring-2 ring-tandoori/40 shadow-[0_24px_50px_-28px_rgba(255,140,0,0.4)]">
       <div className="flex items-center justify-between">
         <Stars />
         <span className="font-display text-4xl leading-none text-tandoori/40">”</span>
@@ -65,7 +65,7 @@ export default function Reviews() {
         />
         {/* rating aggregato per credibilità */}
         <div className="mt-6 flex justify-center">
-          <div className="inline-flex items-center gap-3 rounded-full border border-ink/10 bg-white px-5 py-2.5 shadow-sm">
+          <div className="inline-flex items-center gap-3 rounded-full border border-tandoori/50 bg-white px-5 py-2.5 shadow-warm">
             <Stars />
             <span className="text-sm font-semibold text-ink">4,9 / 5</span>
             <span className="h-4 w-px bg-ink/15" />

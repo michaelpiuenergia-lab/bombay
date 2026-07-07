@@ -31,6 +31,11 @@ const config: Config = {
         },
         cream: {
           DEFAULT: "#FFF3E0", // Masala Cream
+          50: "#FFF8EE", // bianco caldo — sfondo base del sito
+          200: "#FCE6C4", // sabbia — sfumature di sezione
+        },
+        sunny: {
+          DEFAULT: "#FFCB2B", // giallo squillante da insegna
         },
         ink: {
           DEFAULT: "#1A0606", // deepest maroon-black
@@ -51,9 +56,12 @@ const config: Config = {
         "gold-flare": "linear-gradient(135deg, #FFCB2B 0%, #F2B705 50%, #FF8C00 100%)",
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(242,183,5,0.18), 0 20px 60px -15px rgba(255,140,0,0.45)",
-        "glow-red": "0 20px 60px -15px rgba(183,28,28,0.6)",
-        card: "0 30px 60px -25px rgba(0,0,0,0.7)",
+        // Ombre CALDE (oro/arancio a bassa alpha): niente glow "notturno"
+        glow: "0 0 0 1px rgba(242,183,5,0.35), 0 18px 45px -12px rgba(255,140,0,0.4)",
+        "glow-red": "0 18px 45px -12px rgba(183,28,28,0.45)",
+        card: "0 25px 50px -20px rgba(150,80,15,0.35)",
+        warm: "0 22px 45px -18px rgba(255,140,0,0.35)",
+        "warm-red": "0 20px 45px -15px rgba(183,28,28,0.4)",
       },
       keyframes: {
         float: {

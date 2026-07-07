@@ -27,7 +27,7 @@ const RIGHT = [
 
 function Pic({ src, alt }: { src: string; alt: string }) {
   return (
-    <figure className="group overflow-hidden rounded-3xl border border-cream/10 shadow-card">
+    <figure className="group overflow-hidden rounded-3xl border-[3px] border-white shadow-warm">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
@@ -44,23 +44,22 @@ export default function HalalReel() {
     <section
       id="reel"
       aria-label="Tutto fritto al momento, tutto Halal"
-      className="relative py-16 sm:py-20"
+      className="relative overflow-hidden bg-gradient-to-b from-tandoori via-tandoori to-saffron py-16 sm:py-20"
     >
-      {/* glow caldo di fondo */}
+      {/* luce bianca calda di fondo (sezione ORO piena) */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-1/3 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-indian/20 blur-[150px]" />
-        <div className="absolute left-1/2 bottom-0 h-[28rem] w-[40rem] -translate-x-1/2 rounded-full bg-saffron/12 blur-[150px]" />
+        <div className="absolute left-1/2 top-1/3 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-white/25 blur-[150px]" />
       </div>
 
       {/* kicker */}
-      <div className="container-bombay mb-10 text-center">
-        <span className="inline-flex items-center gap-2 rounded-full border border-tandoori/30 bg-tandoori/10 px-4 py-1.5 font-accent text-sm tracking-[0.25em] text-tandoori">
-          <span className="h-1.5 w-1.5 rounded-full bg-saffron" />
+      <div className="container-bombay relative mb-10 text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white/70 px-4 py-1.5 font-accent text-sm tracking-[0.25em] text-indian">
+          <span className="h-1.5 w-1.5 rounded-full bg-mehndi" />
           FRITTO AL MOMENTO · 100% HALAL
         </span>
-        <h2 className="mt-4 font-display text-4xl uppercase leading-[0.95] text-cream sm:text-5xl">
+        <h2 className="mt-4 font-display text-4xl uppercase leading-[0.95] text-ink sm:text-5xl">
           Panini, fritto e patatine.{" "}
-          <span className="text-gradient-gold">Scorri la fame.</span>
+          <span className="text-indian">Scorri la fame.</span>
         </h2>
       </div>
 
@@ -105,15 +104,15 @@ function HalalSeal() {
   const reduce = useReducedMotion();
   return (
     <div className="relative mx-auto grid aspect-square w-full max-w-[26rem] place-items-center">
-      {/* alone pulsante */}
+      {/* alone pulsante — luce bianca calda */}
       <motion.div
-        className="absolute inset-2 rounded-full bg-saffron/25 blur-[70px]"
+        className="absolute inset-2 rounded-full bg-white/40 blur-[70px]"
         animate={reduce ? undefined : { opacity: [0.6, 1, 0.6], scale: [1, 1.05, 1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* disco scuro con bordo oro */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-b from-ink-800/85 to-ink-900/95 ring-1 ring-tandoori/30 shadow-[inset_0_2px_60px_rgba(0,0,0,0.7)]" />
+      {/* disco bianco caldo con bordo rosso: timbro di garanzia sull'oro */}
+      <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-cream ring-2 ring-indian/70 shadow-warm-red" />
 
       {/* anello di testo HALAL che gira */}
       <motion.div
@@ -129,7 +128,7 @@ function HalalSeal() {
             />
           </defs>
           <text
-            className="fill-tandoori font-accent uppercase"
+            className="fill-indian font-accent uppercase"
             style={{ fontSize: 11, letterSpacing: 4 }}
           >
             <textPath href="#halal-ring" startOffset="0">
@@ -141,7 +140,7 @@ function HalalSeal() {
 
       {/* Galletto centrale STATICO (niente testo): gira solo l'anello HALAL
           esterno → si elimina il "BOMBAY FRY & GRILL" doppio e l'effetto confuso */}
-      <div className="absolute inset-[31%] overflow-hidden rounded-full bg-ink-900 ring-1 ring-tandoori/30 shadow-[inset_0_0_24px_rgba(0,0,0,0.7)]">
+      <div className="absolute inset-[31%] overflow-hidden rounded-full bg-ink-900 ring-2 ring-tandoori shadow-warm">
         <Image
           src="/logo-mark.png"
           alt="Galletto Bombay Fry & Grill"
@@ -152,7 +151,7 @@ function HalalSeal() {
       </div>
 
       {/* chip HALAL fisso in basso */}
-      <div className="absolute -bottom-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full bg-mehndi px-4 py-1.5 text-cream shadow-xl ring-2 ring-cream/20">
+      <div className="absolute -bottom-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full bg-mehndi px-4 py-1.5 text-cream shadow-warm ring-2 ring-white/80">
         <HalalBadge className="h-4 w-4" />
         <span className="font-accent text-sm tracking-[0.2em]">HALAL</span>
       </div>

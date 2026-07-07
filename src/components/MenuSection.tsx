@@ -84,7 +84,7 @@ function Card({ item, accent, i }: { item: MenuItem; accent: Accent; i: number }
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-[0_24px_55px_-28px_rgba(0,0,0,0.5)] ring-1 ring-ink/5 transition-shadow hover:shadow-[0_30px_60px_-25px_rgba(183,28,28,0.45)]"
+      className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-[0_24px_50px_-25px_rgba(255,140,0,0.45)] ring-2 ring-tandoori/50 transition-shadow hover:shadow-[0_30px_60px_-25px_rgba(183,28,28,0.45)] hover:ring-tandoori"
     >
       <div className="relative h-44 w-full overflow-hidden">
         {item.img ? (
@@ -118,7 +118,7 @@ function Card({ item, accent, i }: { item: MenuItem; accent: Accent; i: number }
         <h3 className="font-display text-2xl uppercase leading-none text-ink">{item.name}</h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/65">{item.tagline}</p>
         <div className="mt-4 flex items-center justify-between">
-          <span className="font-display text-2xl text-gradient-ember">{item.price}</span>
+          <span className="font-display text-2xl text-indian">{item.price}</span>
           <button
             aria-label={`Aggiungi ${item.name} all'ordine`}
             className={`inline-flex items-center gap-1.5 rounded-full bg-ink/5 px-4 py-2.5 text-sm font-semibold text-ink transition-colors ${a.addHover}`}

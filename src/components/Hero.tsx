@@ -61,17 +61,17 @@ export default function Hero() {
     <section
       ref={ref}
       onMouseMove={onMove}
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden py-24"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-gradient-to-b from-sunny via-tandoori to-saffron py-24"
     >
-      {/* ░░ AMBIENTE: identico alle sezioni che ami — Atmosphere + glow morbidi ░░ */}
+      {/* ░░ AMBIENTE: oro squillante da insegna + luce bianca morbida ░░ */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-1/3 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-indian/20 blur-[150px]" />
-        <div className="absolute left-1/2 bottom-0 h-[28rem] w-[40rem] -translate-x-1/2 rounded-full bg-saffron/12 blur-[150px]" />
+        <div className="absolute left-1/2 top-1/4 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-white/30 blur-[150px]" />
+        <div className="absolute left-1/2 bottom-0 h-[28rem] w-[40rem] -translate-x-1/2 rounded-full bg-indian/15 blur-[150px]" />
       </div>
 
       {/* tricolore */}
       <div className="absolute inset-x-0 top-0 z-30 grid h-1 grid-cols-3">
-        <div className="bg-saffron" /><div className="bg-cream" /><div className="bg-mehndi" />
+        <div className="bg-saffron" /><div className="bg-white" /><div className="bg-mehndi" />
       </div>
 
       {/* patatine che levitano (al posto delle braci-pallini) */}
@@ -86,13 +86,13 @@ export default function Hero() {
         {/* ── IDENTITÀ centrale ── */}
         <motion.div
           style={reduce ? undefined : { x: signX, y: signY }}
-          className="flex flex-col items-center text-center text-cream"
+          className="flex flex-col items-center text-center text-ink"
         >
           <motion.span
             initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: easeOut }}
-            className="inline-flex items-center gap-2 rounded-full border border-tandoori/30 bg-ink-800/60 px-4 py-1.5 font-accent text-sm tracking-[0.3em] text-tandoori backdrop-blur-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white/70 px-4 py-1.5 font-accent text-sm tracking-[0.3em] text-indian backdrop-blur-sm"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mehndi opacity-75" />
@@ -117,14 +117,14 @@ export default function Hero() {
             className="mt-4"
           >
             <h1 className="font-display uppercase leading-[0.82] tracking-tight">
-              <span className="block text-6xl text-cream drop-shadow-[0_6px_40px_rgba(255,140,0,0.45)] sm:text-8xl">Bombay</span>
+              <span className="block text-6xl text-ink drop-shadow-[0_6px_30px_rgba(255,255,255,0.55)] sm:text-8xl">Bombay</span>
             </h1>
-            <div className="mt-2 flex items-center justify-center gap-3 font-accent text-tandoori">
-              <span className="h-px w-8 bg-tandoori/50" />
+            <div className="mt-2 flex items-center justify-center gap-3 font-accent text-indian">
+              <span className="h-px w-8 bg-indian/50" />
               <span className="text-2xl tracking-[0.32em]">FRY &amp; GRILL</span>
-              <span className="h-px w-8 bg-tandoori/50" />
+              <span className="h-px w-8 bg-indian/50" />
             </div>
-            <div className="mt-1.5 font-accent text-xs tracking-[0.42em] text-cream/55">INDIAN FRIED CHICKEN</div>
+            <div className="mt-1.5 font-accent text-xs tracking-[0.42em] text-ink/60">INDIAN FRIED CHICKEN</div>
           </motion.div>
 
           {/* HALAL — cavallo di battaglia */}
@@ -132,14 +132,14 @@ export default function Hero() {
             initial={reduce ? false : { opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4, type: "spring", stiffness: 120, damping: 14 }}
-            className="mt-5 inline-flex items-center gap-3 rounded-2xl border-2 border-mehndi/60 bg-mehndi/15 px-5 py-2.5 backdrop-blur-sm"
+            className="mt-5 inline-flex items-center gap-3 rounded-2xl border-2 border-mehndi/70 bg-white/70 px-5 py-2.5 shadow-warm backdrop-blur-sm"
           >
-            <span className="grid h-11 w-11 place-items-center rounded-full bg-mehndi text-cream ring-2 ring-cream/25">
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-mehndi text-cream ring-2 ring-white">
               <HalalBadge className="h-6 w-6" />
             </span>
             <span className="text-left leading-tight">
-              <span className="block font-display text-xl tracking-wide text-cream sm:text-2xl">100% HALAL</span>
-              <span className="block font-accent text-[10px] tracking-[0.26em] text-cream/75 sm:text-[11px]">حلال · CARNE CERTIFICATA · FILIERA CONTROLLATA</span>
+              <span className="block font-display text-xl tracking-wide text-ink sm:text-2xl">100% HALAL</span>
+              <span className="block font-accent text-[10px] tracking-[0.26em] text-mehndi sm:text-[11px]">حلال · CARNE CERTIFICATA · FILIERA CONTROLLATA</span>
             </span>
           </motion.div>
 
@@ -147,9 +147,9 @@ export default function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5, ease: easeOut }}
-            className="mt-5 max-w-md text-base font-medium leading-relaxed text-cream/75"
+            className="mt-5 max-w-md text-base font-medium leading-relaxed text-ink/80"
           >
-            Il pollo fritto <span className="font-bold text-gradient-gold">più speziato della città</span>:
+            Il pollo fritto <span className="font-bold text-indian">più speziato della città</span>:
             marinato 24 ore in 11 spezie tostate, fritto e grigliato al momento.
           </motion.p>
 
@@ -159,12 +159,12 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.6, ease: easeOut }}
             className="mt-6 flex flex-wrap items-center justify-center gap-3"
           >
-            <a href="#menu" className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gold-flare px-8 py-4 font-accent text-lg tracking-wider text-ink shadow-glow transition-transform duration-200 hover:scale-[1.03] active:scale-95">
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+            <a href="#menu" className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-indian px-8 py-4 font-accent text-lg tracking-wider text-cream shadow-warm-red transition-transform duration-200 hover:scale-[1.03] active:scale-95">
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               Ordina ora
               <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </a>
-            <a href="#menu" className="inline-flex items-center gap-2 rounded-full border-2 border-cream/30 px-7 py-4 font-accent text-lg tracking-wider text-cream backdrop-blur-sm transition-colors duration-200 hover:border-cream hover:bg-cream hover:text-ink">
+            <a href="#menu" className="inline-flex items-center gap-2 rounded-full border-2 border-ink/35 px-7 py-4 font-accent text-lg tracking-wider text-ink backdrop-blur-sm transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-cream">
               Scopri il menu
             </a>
           </motion.div>
@@ -174,12 +174,12 @@ export default function Hero() {
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.72 }}
-            className="mt-7 grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-4 border-t border-cream/12 pt-5 sm:grid-cols-4 sm:gap-3"
+            className="mt-7 grid w-full max-w-md grid-cols-2 gap-x-4 gap-y-4 border-t border-ink/15 pt-5 sm:grid-cols-4 sm:gap-3"
           >
             {stats.map((s) => (
               <div key={s.label}>
-                <div className="font-display text-3xl text-tandoori">{s.value}</div>
-                <div className="mt-1 text-[10px] font-semibold uppercase leading-tight tracking-wide text-cream/55">{s.label}</div>
+                <div className="font-display text-3xl text-indian">{s.value}</div>
+                <div className="mt-1 text-[10px] font-semibold uppercase leading-tight tracking-wide text-ink/60">{s.label}</div>
               </div>
             ))}
           </motion.div>
@@ -268,7 +268,7 @@ function FoodCard({ src, alt, delay = 0, compact = false }: { src: string; alt: 
       onPointerMove={onMove}
       onPointerLeave={onLeave}
       style={reduce ? undefined : { rotateX, rotateY, transformPerspective: 700 }}
-      className="group relative overflow-hidden rounded-3xl border border-cream/10 shadow-card [touch-action:pan-y] [transform-style:preserve-3d]"
+      className="group relative overflow-hidden rounded-3xl border-[3px] border-white shadow-warm [touch-action:pan-y] [transform-style:preserve-3d]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -293,22 +293,23 @@ function Crest({ reduce }: { reduce: boolean }) {
   return (
     <div className="relative aspect-square w-full">
       <motion.div
-        className="absolute inset-[-12%] rounded-full bg-saffron/30 blur-[34px]"
+        className="absolute inset-[-12%] rounded-full bg-white/50 blur-[34px]"
         animate={reduce ? undefined : { opacity: [0.55, 1, 0.55], scale: [1, 1.05, 1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
-      <div className="absolute inset-0 rounded-full bg-gold-flare p-[3px] shadow-glow">
-        <div className="h-full w-full rounded-full bg-gradient-to-b from-ink-700 to-ink-900 ring-1 ring-black/40 shadow-[inset_0_2px_50px_rgba(0,0,0,0.7)]" />
+      {/* medaglione BIANCO con cornice rossa: un timbro da insegna sul muro d'oro */}
+      <div className="absolute inset-0 rounded-full bg-ember p-[3px] shadow-warm-red">
+        <div className="h-full w-full rounded-full bg-gradient-to-b from-white to-cream" />
       </div>
       <motion.div className="absolute inset-0" animate={reduce ? undefined : { rotate: 360 }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }}>
         <svg viewBox="0 0 200 200" className="h-full w-full">
           <defs><path id="hero-ring" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" /></defs>
-          <text className="fill-tandoori font-accent uppercase" style={{ fontSize: 10.5, letterSpacing: 4 }}>
+          <text className="fill-indian font-accent uppercase" style={{ fontSize: 10.5, letterSpacing: 4 }}>
             <textPath href="#hero-ring" startOffset="0">✦ BOMBAY FRY &amp; GRILL ✦ INDIAN FRIED CHICKEN ✦ 100% HALAL ✦ COTTO FRESCO ✦</textPath>
           </text>
         </svg>
       </motion.div>
-      <div className="absolute inset-[20%] overflow-hidden rounded-full bg-ink-900 ring-1 ring-tandoori/30 shadow-[inset_0_0_24px_rgba(0,0,0,0.7)]">
+      <div className="absolute inset-[20%] overflow-hidden rounded-full bg-ink-900 ring-2 ring-saffron shadow-warm">
         <Image src="/logo-mark.png" alt="Bombay Fry & Grill — il gallo" width={495} height={342} priority className="h-full w-full object-cover" />
       </div>
     </div>

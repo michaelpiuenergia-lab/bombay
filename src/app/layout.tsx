@@ -52,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="it" className={cn("scroll-smooth", "font-sans", geist.variable)}>
       <body
-        className={`${anton.variable} ${bebas.variable} ${jakarta.variable} font-body bg-ink text-cream antialiased selection:bg-saffron selection:text-ink`}
+        className={`${anton.variable} ${bebas.variable} ${jakarta.variable} font-body bg-cream-50 text-ink antialiased selection:bg-tandoori selection:text-ink`}
       >
         {children}
       </body>

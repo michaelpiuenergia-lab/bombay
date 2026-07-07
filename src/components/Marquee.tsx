@@ -11,7 +11,8 @@ const items = [
 
 export default function Marquee() {
   return (
-    <div className="relative border-y border-cream/10 bg-ember py-4">
+    // Nastro ROSSO da fast food con testo ORO: qui il colore pieno è il messaggio
+    <div className="relative border-y-4 border-tandoori bg-indian py-4">
       <div className="mask-fade-x flex overflow-hidden">
         <div className="flex shrink-0 animate-marquee items-center gap-8 pr-8">
           {[...items, ...items].map((t, i) => (
@@ -32,11 +33,11 @@ function Token({ text, index }: { text: string; index: number }) {
   const Icon = [Flame, Chili, Leaf][index % 3];
   return (
     <span className="flex items-center gap-8">
-      <span className="flex items-center gap-3 font-display text-lg uppercase tracking-wider text-cream sm:text-2xl">
-        <Icon className="h-5 w-5 text-tandoori sm:h-6 sm:w-6" />
+      <span className="flex items-center gap-3 font-display text-lg uppercase tracking-wider text-tandoori-400 sm:text-2xl">
+        <Icon className="h-5 w-5 text-cream sm:h-6 sm:w-6" />
         {text}
       </span>
-      <span className="text-tandoori">✦</span>
+      <span className="text-cream">✦</span>
     </span>
   );
 }

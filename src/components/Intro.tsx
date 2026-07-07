@@ -135,13 +135,13 @@ export default function Intro() {
             transition={{ duration: 0.7, ease: "easeIn" }}
           >
             {/* alone sfocato: pesante da ricompositare durante lo scale -> solo da sm in su (su mobile fa flicker) */}
-            <div className="pointer-events-none absolute hidden h-[40rem] w-[40rem] rounded-full bg-saffron/15 blur-[130px] sm:block" />
+            <div className="pointer-events-none absolute hidden h-[40rem] w-[40rem] rounded-full bg-white/25 blur-[130px] sm:block" />
 
             <motion.span
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="absolute top-[18%] hidden font-accent text-base tracking-[0.45em] text-tandoori sm:block sm:text-lg"
+              className="absolute top-[18%] hidden font-accent text-base tracking-[0.45em] text-ink/75 sm:block sm:text-lg"
             >
               नमस्ते · NAMASTÉ
             </motion.span>
@@ -163,8 +163,8 @@ export default function Intro() {
                 transition={{ delay: isMobile ? 0.35 : 0.5, duration: 0.6 }}
                 className="mt-7 sm:mt-0 sm:absolute sm:bottom-[20%] sm:left-0 sm:right-0 sm:px-6"
               >
-                <h2 className="font-display text-3xl uppercase leading-none text-cream sm:text-5xl">
-                  Dall&apos;India <span className="text-gradient-gold">a Bombay</span>
+                <h2 className="font-display text-3xl uppercase leading-none text-ink sm:text-5xl">
+                  Dall&apos;India <span className="text-indian">a Bombay</span>
                 </h2>
               </motion.div>
             </div>
@@ -173,7 +173,7 @@ export default function Intro() {
             <motion.div
               animate={reduce ? undefined : { opacity: [0.5, 1, 0.5], y: [0, 4, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-[9%] left-0 right-0 hidden font-accent text-xs tracking-[0.3em] text-cream/70 sm:block"
+              className="absolute bottom-[9%] left-0 right-0 hidden font-accent text-xs tracking-[0.3em] text-ink/65 sm:block"
             >
               SCORRI O CLICCA PER ENTRARE ▸
             </motion.div>

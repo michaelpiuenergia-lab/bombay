@@ -26,7 +26,7 @@ export default function SocialIcons({ className = "" }: { className?: string }) 
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          className="grid h-11 w-11 place-items-center rounded-xl bg-cream/5 ring-1 ring-cream/10 transition-colors hover:bg-cream/15 [&_svg]:h-5 [&_svg]:w-5"
+          className="grid h-11 w-11 place-items-center rounded-xl bg-white ring-1 ring-tandoori/50 shadow-warm transition-colors hover:bg-tandoori/20 [&_svg]:h-5 [&_svg]:w-5"
           dangerouslySetInnerHTML={{ __html: s.svg }}
         />
       ))}

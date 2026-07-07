@@ -7,11 +7,14 @@ import { SectionHeading } from "./Motion";
 import { Flame } from "./Icons";
 
 const levelColors = ["#2E7D32", "#F2B705", "#FF8C00", "#B71C1C"];
+// Varianti più scure per il TESTO: l'oro/zafferano puro su crema non regge il contrasto
+const levelTextColors = ["#2E7D32", "#A87F03", "#C2410C", "#B71C1C"];
 
 export default function HeatLevels() {
   const [active, setActive] = useState(1);
   const current = heatLevels[active];
   const color = levelColors[active];
+  const textColor = levelTextColors[active];
 
   return (
     <section id="heat" className="relative overflow-hidden pt-10 pb-24 sm:pt-14 sm:pb-32">
@@ -54,7 +57,7 @@ export default function HeatLevels() {
                   >
                     <Flame
                       className="h-12 w-12 sm:h-16 sm:w-16"
-                      style={{ color: i <= active ? color : "#FFF3E0" }}
+                      style={{ color: i <= active ? color : "#E9D6B8" }}
                     />
                   </motion.div>
                 ))}
@@ -64,7 +67,7 @@ export default function HeatLevels() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-6 font-display text-2xl"
-                style={{ color }}
+                style={{ color: textColor }}
               >
                 {current.scoville}
               </motion.div>
@@ -82,29 +85,29 @@ export default function HeatLevels() {
                   aria-label={`Livello ${lvl.level}: ${lvl.name}`}
                   className={`group flex items-center gap-4 rounded-2xl border p-4 text-left transition-all duration-300 ${
                     active === i
-                      ? "border-transparent bg-cream/5"
-                      : "border-cream/10 hover:border-cream/25"
+                      ? "border-transparent bg-white shadow-warm"
+                      : "border-ink/10 bg-white/40 hover:border-ink/25"
                   }`}
                   style={active === i ? { boxShadow: `inset 0 0 0 1.5px ${levelColors[i]}` } : undefined}
                 >
                   <span
                     className="grid h-12 w-12 shrink-0 place-items-center rounded-xl font-display text-xl transition-colors"
                     style={{
-                      background: active === i ? levelColors[i] : "rgba(255,243,224,0.06)",
-                      color: active === i ? "#1A0606" : levelColors[i],
+                      background: active === i ? levelColors[i] : "rgba(26,6,6,0.05)",
+                      color: active === i ? (i === 3 ? "#FFF3E0" : "#1A0606") : levelTextColors[i],
                     }}
                   >
                     {lvl.level}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <div className="font-display text-xl uppercase text-cream">{lvl.name}</div>
+                    <div className="font-display text-xl uppercase text-ink">{lvl.name}</div>
                     <AnimatePresence mode="wait">
                       {active === i && (
                         <motion.p
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
-                          className="overflow-hidden text-sm text-cream/65"
+                          className="overflow-hidden text-sm text-ink/65"
                         >
                           {lvl.desc}
                         </motion.p>
@@ -116,7 +119,7 @@ export default function HeatLevels() {
                       <span
                         key={d}
                         className="h-6 w-1.5 rounded-full"
-                        style={{ background: d <= i ? levelColors[i] : "rgba(255,243,224,0.15)" }}
+                        style={{ background: d <= i ? levelColors[i] : "rgba(26,6,6,0.12)" }}
                       />
                     ))}
                   </div>
